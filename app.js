@@ -11,15 +11,21 @@ const errorHandlers = require("./handlers/errorHandlers");
 
 const app = express();
 
-let whitelist = "";
+let whitelist = [];
 if (app.get("env") === "production") {
-  whitelist = "https://jobless-form.surge.sh/";
+  whitelist.push("https://jobless-form.surge.sh/");
 } else {
-  whitelist = "http://127.0.0.1:5500";
+  whitelist.push("http://127.0.0.1:5500");
 }
 
 const corsOptions = {
-  origin: whitelist,
+  origin: function (origin, callback) {
+    if (whitelist.indexOf("origin") !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
 };
 
 app.use(cors(corsOptions));

@@ -12,10 +12,10 @@ const errorHandlers = require("./handlers/errorHandlers");
 const app = express();
 
 let whitelist = [];
-if (app.get("env") === "production") {
-  whitelist.push("https://jobless-form.surge.sh/");
-} else {
+if (app.get("env") === "development") {
   whitelist.push("http://127.0.0.1:5500");
+} else {
+  whitelist.push("https://jobless-form.surge.sh/");
 }
 
 const corsOptions = {

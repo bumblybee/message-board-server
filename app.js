@@ -13,9 +13,9 @@ const app = express();
 
 let whitelist = "";
 if (app.get("env") === "development") {
-  whitelist = "http://localhost:3000/";
+  whitelist = "http://127.0.0.1:5500";
 } else {
-  whitelist = "http://localhost:9000";
+  whitelist = "http://jobless-form.surge.sh/";
 }
 
 const corsOptions = {

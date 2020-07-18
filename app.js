@@ -13,7 +13,7 @@ const app = express();
 
 let whitelist = [];
 if (app.get("env") === "development") {
-  whitelist.push("http://127.0.0.1:5500");
+  whitelist.push("http://localhost:9000");
 } else {
   whitelist.push("https://jobless-form.surge.sh");
 }

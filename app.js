@@ -11,28 +11,23 @@ const errorHandlers = require("./handlers/errorHandlers");
 
 const app = express();
 
-// let whitelist = [
-//   "http://localhost:9000",
-//   "http://localhost:3000",
-//   "https://jobless-form.surge.sh",
-// ];
+let whitelist = [
+  "http://127.0.0.1:5500/",
+  "http://localhost:3000",
+  "https://jobless-form.surge.sh",
+];
 
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1 || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-// };
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
 
-app.use(
-  cors({
-    origin: "http://locahost:9000",
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
 
 app.use(logger("dev"));
 app.use(express.json());

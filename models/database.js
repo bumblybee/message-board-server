@@ -5,7 +5,7 @@ const UserModel = require("./UserModel").UserModel;
 let serielize;
 
 if (env !== "production") {
-  serielize = new Sequelize(
+  sequelize = new Sequelize(
     process.env.DATABASE,
     process.env.DATABASE_USER,
     process.env.DATABASE_PASSWORD,
@@ -15,14 +15,14 @@ if (env !== "production") {
     }
   );
 } else {
-  serielize = new Sequelize(process.env.DATABASE_URL);
+  sequelize = new Sequelize(process.env.DATABASE_URL);
 }
 
 // authenticate db
-serielize
+sequelize
   .authenticate()
   .then(() => console.log("Database connected..."))
   .catch((err) => console.log("Error:" + err));
 
-const User = UserModel(serielize, Sequelize);
-module.exports = { serielize, Sequelize, User };
+const User = UserModel(sequelize, Sequelize);
+module.exports = { sequelize, Sequelize, User };

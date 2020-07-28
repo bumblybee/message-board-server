@@ -28,18 +28,6 @@ exports.signupUser = async (req, res) => {
   res.json(createdUser);
 };
 
-const generateJWT = (user) => {
-  const userData = {
-    id: user.id,
-    username: user.username,
-    email: user.email,
-  };
-
-  const secret = Buffer.from(process.env.JWT_SECRET, "base64");
-  const expiration = "6h";
-  return jwt.sign({ userData }, secret, { expiresIn: expiration });
-};
-
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
   const userRecord = await User.findOne({ where: { email: email } });
@@ -62,5 +50,20 @@ exports.loginUser = async (req, res) => {
     username: userRecord.username,
     email: userRecord.email,
     avatarUrl: userRecord.avatarUrl,
+  });
+};
+
+const generateJWT = (user) => {
+  const userData = {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+  };
+
+  const secret = Buffer.from(process.env.JWT_SECRET, "base64");
+  const expiration = "6h";
+  return jwt.sign({ userData }, secret, {
+    expiresIn: expiration,
+    algorithm: "HS256",
   });
 };

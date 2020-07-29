@@ -31,6 +31,7 @@ exports.signupUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
   const userRecord = await User.findOne({ where: { email: email } });
+
   if (!userRecord) {
     throw new Error("User not found");
   } else {
@@ -39,6 +40,8 @@ exports.loginUser = async (req, res) => {
       throw new Error("Incorrect Password");
     }
   }
+
+  console.log(req.cookies["jwt"]);
 
   res.cookie("jwt", generateJWT(userRecord), {
     httpOnly: true,

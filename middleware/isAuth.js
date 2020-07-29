@@ -4,6 +4,7 @@ const cookie = require("cookie");
 const getTokenFromHeader = (req) => {
   if (req.headers) {
     const cookieToken = cookie.parse(req.headers.cookie).jwt;
+    // const cookieToken = req.cookies["jwt"];
     return cookieToken;
   }
 };
@@ -13,4 +14,7 @@ exports.isAuth = jwt({
   userProperty: "token",
   getToken: getTokenFromHeader,
   algorithms: ["HS256"],
+  credentialsRequired: true,
 });
+
+console.log(exports);

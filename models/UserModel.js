@@ -39,6 +39,14 @@ exports.UserModel = (serielize, DataTypes) => {
         type: DataTypes.DATE,
         field: "updated_at",
       },
+      resetPasswordToken: {
+        type: DataTypes.STRING,
+        field: "password_reset_token",
+      },
+      resetPasswordExpiry: {
+        type: DataTypes.DATE,
+        field: "reset_password_expiry",
+      },
     },
     { tableName: "user" }
   );
